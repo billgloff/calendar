@@ -164,10 +164,24 @@ const Calendar = React.createClass({
     this.onSelect(value, {
       source: 'dateInput',
     });
+    if(this.props.onDateInputChange){
+      this.props.onDateInputChange(value);
+    }
   },
+
+  onTimeInputChange(value) {
+    this.onSelect(value, {
+      source: 'dateInput',
+    });
+    if(this.props.onTimeInputChange){
+      this.props.onTimeInputChange(value);
+    }
+  },
+
   onDateTableSelect(value) {
     this.onSelect(value);
   },
+
   onToday() {
     const { value } = this.state;
     const now = getTodayTime(value);
@@ -175,19 +189,23 @@ const Calendar = React.createClass({
       source: 'todayButton',
     });
   },
+
   getRootDOMNode() {
     return ReactDOM.findDOMNode(this);
   },
+
   openTimePicker() {
     this.setState({
       showTimePicker: true,
     });
   },
+
   closeTimePicker() {
     this.setState({
       showTimePicker: false,
     });
   },
+
   render() {
     const props = this.props;
     const {
@@ -205,7 +223,7 @@ const Calendar = React.createClass({
       showSecond: true,
       ...timePicker.props,
       ...disabledTimeConfig,
-      onChange: this.onDateInputChange,
+      onChange: this.onTimeInputChange,
       defaultOpenValue: value,
       value: selectedValue,
       disabledTime,
